@@ -15,6 +15,14 @@ function s-salome-kernel-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/kernel
 }
 
+function s-salome-kernel-github-vcs()
+{
+    echo default
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/kernel
+}
+
 function s-salome-kernel-archive()
 {
     local VERSION=$1
