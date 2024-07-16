@@ -15,6 +15,14 @@ function s-libbatch-cea-vcs()
     echo https://codev-tuleap.cea.fr/plugins/git/salome/libbatch
 }
 
+function s-libbatch-github-vcs()
+{
+    echo github
+    echo none
+    echo git
+    echo https://github.com/SalomePlatform/libbatch
+}
+
 function s-libbatch-archive()
 {
     local VERSION=$1
