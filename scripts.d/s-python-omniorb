@@ -15,7 +15,7 @@ function s-python-omniorb-cea-archive()
     echo edf
     echo none
     echo wget
-    echo ftp://anonymous@ftp.cea.fr/pub/salome/prerequisites
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
     echo omniORBpy-$VERSION.tar.gz
 }
 
