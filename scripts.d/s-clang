@@ -1,5 +1,11 @@
 inherit-plugin c-clang
 
+with-variant native os@-clang:[v]
+
+#  Adds a Windows variant using the MingW64 clang version
+with-variant win \
+  --env 'add-to-var PATH $(cygpath -c -s "C:\msys64\mingw64\bin")'
+
 function s-clang-vcs()
 {
     echo edf

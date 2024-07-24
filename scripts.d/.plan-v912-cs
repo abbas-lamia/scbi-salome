@@ -5,7 +5,8 @@
 @set PV_VERSION  = v5.11.0
 
 # clang 12 & s-ispc 1.16 are matching versions
-s-clang:#12.x
+#s-clang:#12.x
+s-clang/win:18.1.8
 # using binary version 1.16.1
 s-ispc/bin:#v1.16.1
 
@@ -39,7 +40,8 @@ s-qmake/auto:#5.15.2
 s-pyqt/auto:#5.15.3
 s-sip/auto:#5.5.0
 s-pyqt-sip:#12.8.1
-s-cmake/auto:v3.25.2
+#s-cmake/auto:v3.25.2
+s-cmake/win:3.29.6
 s-ttk:#1.1.0
 s-carmel-study:master
 s-tefluide:master
