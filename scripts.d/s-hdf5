@@ -64,6 +64,28 @@ function s-hdf5-archive()
     echo hdf5-$VERSION.tar.gz
 }
 
+function s-hdf5-mingw-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-$VERSION/src
+    echo hdf5-$VERSION.tar.gz
+}
+
+function s-hdf5-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    echo hdf5-1.10.6-mingw64.patch
+}
+
 function s-hdf5-build-depends()
 {
     local DISDOC=$(is-enabled no-doc)
@@ -135,6 +157,23 @@ function s-hdf5-common-config-options()
     echo -DBUILD_SHARED_LIBS=ON
     echo -DHDF5_ENABLE_Z_LIB_SUPPORT=ON
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
+}
+
+function s-hdf5-mingw-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo -DCMAKE_DLL_NAME_WITH_SOVERSION=ON
+    echo -DBUILD_TESTING=ON
+    echo -DCMAKE_SKIP_RPATH=ON
+	echo -DHDF5_BUILD_CPP_LIB=ON 
+	echo -DHDF5_BUILD_FORTRAN=ON
+    echo -DHDF5_ENABLE_DEPRECATED_SYMBOLS=ON
+	echo -DHDF5_ENABLE_SZIP_SUPPORT=OFF
+	#echo -DHDF5_INSTALL_CMAKE_DIR="lib/cmake"
+	#echo -DHDF5_INSTALL_DATA_DIR="share/doc/hdf5"
 }
 
 function s-hdf5-config()

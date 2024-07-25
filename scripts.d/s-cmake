@@ -4,7 +4,7 @@ with-variant native os@-cmake:[v]
 
 #  Adds a Windows variant using the MingW64 cmake version
 with-variant win \
-  --env 'add-to-var PATH $(cygpath -c -s "c:\msys64\usr\bin\cmake")'
+  --env 'add-to-var PATH $(cygpath -c -s "c:\msys64\mingw64\bin")'
 
 function s-cmake-vcs()
 {
