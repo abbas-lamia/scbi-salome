@@ -63,14 +63,15 @@ function s-hdf5-archive()
     echo hdf5-$VERSION.tar.gz
 }
 
-function s-hdf5-mingw-archive()
+function s-hdf5-cea-archive()
 {
     local VERSION=$1
 
     echo default
     echo none
     echo wget
-    echo https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-$VERSION/src
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    #echo https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-$VERSION/src
     echo hdf5-$VERSION.tar.gz
 }
 
