@@ -2,7 +2,11 @@
 with-variant native os@-swig:[v] \
              --env 'set-var SWIG_ROOT_DIR /usr' \
                    'set-var SWIG_ROOT /usr'
-
+#  Adds a Windows variant using the MingW64 clang version
+with-variant win  \
+             --env 'add-to-var PATH $(cygpath -c -s "c:\msys64\mingw64\bin")' \
+                   'set-var SWIG_ROOT_DIR /usr' \
+                   'set-var SWIG_ROOT /usr'
 function s-swig-vcs()
 {
     echo edf
