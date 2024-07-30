@@ -85,13 +85,14 @@ s-occt:#7.5.3p5
 s-meshgems:#V2.13-3_linux_EU
 s-distene:#V2.12-1_linux_EU
 s-cgns/auto:#4.2.0
-s-hdf5/mingw:#1.10.6
+s-hdf5/cea.mingw:#1.10.6
 s-catalyst:#2.0-431a8a1
 s-python-modules/default.wand.metadata.toml:master
 s-scotch/auto:#6.1.2
 s-ptscotch/auto:#6.1.2
 s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
 s-cgal/auto:v4.13
+s-netcdf:v4.7.4
 
 [
         # s-homard tool is now merged into s-homard module
@@ -102,7 +103,7 @@ s-cgal/auto:v4.13
 [
         s-openmpi
         s-opencv
-        s-netcdf
+        #s-netcdf
         s-eigen
         s-boost
 ] /native
