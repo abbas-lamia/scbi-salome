@@ -9,15 +9,26 @@ function s-netcdf-vcs()
     echo https://github.com/Unidata/netcdf-c.git
 }
 
-function s-netcdf-archive()
+function s-netcdf-cea-archive()
 {
     local VERSION=$1
 
     echo default
     echo none
-    echo none
-    echo none
-    echo netcdf-$VERSION.tar.gz
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo netcdf-c-$VERSION.tar.gz
+}
+
+function s-netcdf-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    echo netcdf-4.7.4-skip-XGetopt.patch
 }
 
 function s-netcdf-build-depends()
@@ -42,6 +53,27 @@ function s-netcdf-env()
     add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
     add-to-var LIBRARY_PATH       $PREFIX/lib
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+}
+
+function s-netcdf-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+		-G"MSYS Makefiles" \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DENABLE_NETCDF_4=ON \
+		-DBUILD_UTILITIES=ON \
+		-DBUILD_SHARED_LIBS=ON \
+		-DENABLE_DAP=OFF \
+		-DENABLE_TESTS=ON \
+		-DENABLE_UNIT_TESTS=OFF \
+		-DHDF5_HL_LIBRARY=${HDF5_ROOT_DIR}/lib/hdf5_hl.lib \
+		-DHDF5_C_LIBRARY=${HDF5_ROOT_DIR}/lib/hdf5.lib \
+		-DHDF5_INCLUDE_DIR=${HDF5_ROOT_DIR}/include \
+        ../src
 }
 
 function s-netcdf-config()
