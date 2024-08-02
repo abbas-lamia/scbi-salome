@@ -66,6 +66,55 @@ function s-occt-env()
     set-var CSF_PluginDefaults        $CASRES/StdResource
 }
 
+function s-occt-mingw-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    OPENCASCADE_ROOT_DIR $PREFIX
+    set-var    CASROOT              $PREFIX
+    set-var    CAS_ROOT_DIR         $PREFIX
+
+    set-var    OCC_INCLUDE_DIR      $PREFIX/include/opencascade
+    set-var    OCC_LIBRARY_DIR      $PREFIX/lib
+
+    add-to-var PATH                 $PREFIX/win64/gcc/bin
+    add-to-var LD_LIBRARY_PATH      $PREFIX/win64/gcc/bin
+    add-to-var LIBRARY_PATH         $PREFIX/lib
+    add-to-var C_INCLUDE_PATH       $PREFIX/include/opencascade
+    add-to-var CPLUS_INCLUDE_PATH   $PREFIX/include/opencascade
+    add-to-var CMAKE_MODULE_PATH    $PREFIX/lib/cmake
+    add-to-var CMAKE_PREFIX_PATH    $PREFIX/lib/cmake/opencascade
+
+    set-var CSF_UnitsLexicon          $PREFIX/src/UnitsAPI/Lexi_Expr.dat  
+    set-var CSF_OCCTBinPath           $PREFIX/win64/gcc/bin 
+    set-var CSF_OCCTLibPath           $PREFIX/win64/gcc/lib 
+    set-var CSF_OCCTIncludePath       $PREFIX/inc
+    set-var CSF_OCCTResourcePath      $PREFIX/src 
+    set-var CSF_OCCTDataPath          $PREFIX/data 
+    set-var CSF_OCCTSamplesPath       $PREFIX/samples
+    set-var CSF_OCCTTestsPath         $PREFIX/tests 
+    set-var CSF_OCCDocPath           $PREFIX/doc # SI DOXYGEN 
+    set-var CSF_SHMessTage             $PREFIX/src/SHMessage
+    set-var CSF_MDTVTexturesDirectory $PREFIX/src/Textures
+    set-var CSF_ShadersDirectory      $PREFIX/src/Shaders
+    set-var CSF_XSMessage             $PREFIX/src/XSMessage 
+    set-var CSF_TObjMessage           $PREFIX/src/TObj 
+    set-var CSF_StandardDefaults      $PREFIX/src/StdResource
+    set-var CSF_PluginDefaults        $PREFIX/src/StdResource 
+    set-var CSF_XCAFDefaults          $PREFIX/src/StdResource
+    set-var CSF_TObjDefaults          $PREFIX/srcStdResource 
+    set-var CSF_StandardLiteDefaults  $PREFIX/src/StdResource 
+    set-var CSF_IGESDefaults          $PREFIX/src/XSTEPResource
+    set-var CSF_STEPDefaults          $PREFIX/src/XSTEPResource
+    set-var CSF_XmlOcafResource       $PREFIX/src/XmlOcafResource
+    set-var CSF_MIGRATION_TYPES       $PREFIX/src/StdResource/MigrationSheet.txt 
+    set-var CSF_UnitsDefinition       $PREFIX/src/UnitsAPI/Units.dat
+    set-var MMGT_CLEAR                1 
+    set-var MMGT_REENTRANT            1 
+    set-var CSF_LANGUAGE              us 
+}
+
 function s-occt-config-options()
 {
     local PREFIX=$1
