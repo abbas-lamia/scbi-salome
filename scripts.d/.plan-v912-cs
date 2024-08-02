@@ -79,9 +79,9 @@ c-mpfr/auto:4.0
 
 s-libbatch/github:V2_5_0
 
-s-python-omniorb/cea:#4.2.5
-s-omniorb/cea:#4.2.5
-s-occt:#7.5.3p5
+s-python-omniorb/cea.mingw:#4.2.6
+s-omniorb/cea.mingw:#4.2.6
+s-occt/mingw:SALOME_9_13_V7_8_0
 s-meshgems:#V2.13-3_linux_EU
 s-distene:#V2.12-1_linux_EU
 s-cgns/auto:#4.2.0
