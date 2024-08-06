@@ -35,6 +35,17 @@ function s-omniorb-archive()
     echo omniORB-$VERSION.tar.gz
 }
 
+function s-omniorb-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    echo omniORB-4.2.6.msys2.patch
+}
+
 function s-omniorb-depends()
 {
     echo os@-python3-dev
@@ -53,12 +64,41 @@ function s-omniorb-env()
     add-to-var PATH               $PREFIX/bin
 }
 
+function s-omniorb-mingw-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+ 
+    set-var    OMNIORB_ROOT_DIR   $PREFIX
+    set-var    OMNIORB_ROOT       $PREFIX
+    add-to-var PATH               ${OMNIORB_ROOT_DIR}/bin/x86_win32
+    add-to-var PATH               ${OMNIORB_ROOT_DIR}/lib/x86_win32
+    add-to-var PYTHONPATH         ${OMNIORB_ROOT_DIR}/lib/python
+    add-to-var PYTHONPATH         ${OMNIORB_ROOT_DIR}/lib/x86_win32
+    set-var    OMNIORB_LIB_DIR    ${OMNIORB_ROOT_DIR}/lib/x86_win32
+    set-var    OMNIORB_BIN_DIR    ${OMNIORB_ROOT_DIR}/bin/x86_win32
+    set-var    OMNIORB_USER_PATH  ${APPDATA}
+
+    #add-to-var C_INCLUDE_PATH     $PREFIX/include
+    #add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    add-to-var LD_LIBRARY_PATH    ${OMNIORB_ROOT_DIR}/lib
+    
+}
+
 function s-omniorb-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
     ../src/configure PYTHON=/usr/bin/python3 --prefix=$PREFIX
+}
+
+function s-omniorb-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo NONE
 }
 
 function s-omniorb-build()
@@ -69,12 +109,33 @@ function s-omniorb-build()
     make -j$SCBI_JOBS
 }
 
+function s-omniorb-mingw-build()
+{
+    echo NONE
+    local PREFIX=$1
+    local TARGET=$2
+    cd ../src/src/tool/omkdepend
+    make export
+    cd ../../
+    make export
+    cd ../..
+}
+
 function s-omniorb-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-omniorb-mingw-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cp -r ../src/src/bin $PREFIX
+    cp -r ../src/src/lib $PREFIX
 }
 
 function s-omniorb-prefix()
