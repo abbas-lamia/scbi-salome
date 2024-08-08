@@ -30,6 +30,17 @@ function s-python-omniorb-archive()
     echo omniORBpy-$VERSION.tar.gz
 }
 
+function s-python-omniorb-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    echo omniORBpy-4.2.6.msys2.patch
+}
+
 function s-python-omniorb-depends()
 {
     echo s-omniorb
@@ -51,6 +62,16 @@ function s-python-omniorb-env()
                $PREFIX/lib*/python$PYTHON_VERSION/site-packages/_omnipy*so))
 }
 
+function s-python-omniorb-mingw-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # Les variables d'environnement ont été définies dans s-omniorb
+    echo NONE
+
+}
+
 function s-python-omniorb-config()
 {
     local PREFIX=$1
@@ -61,6 +82,15 @@ function s-python-omniorb-config()
             PYTHON=$(command -v python3)
 }
 
+function s-python-omniorb-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo $OMNIORBPY_DIR
+    cp -r ../src $OMNIORBPY_DIR
+}
+
 function s-python-omniorb-build()
 {
     local PREFIX=$1
@@ -69,12 +99,34 @@ function s-python-omniorb-build()
     make -j$SCBI_JOBS
 }
 
+function s-python-omniorb-mingw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    
+    echo $OMNIORBPY_DIR
+    cd $OMNIORBPY_DIR
+    echo $OMNIORBPY_DIR
+    make export
+}
+
 function s-python-omniorb-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-python-omniorb-mingw-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    # On met à jour le repertoire installation de omniorb
+    # car toute les variables pointent dessus
+    cp -r $OMNIORB_ROOT/bin $OMNIORB_ROOT_DIR
+    cp -r $OMNIORB_ROOT/src/lib $OMNIORB_ROOT_DIR
 }
 
 function s-python-omniorb-prefix()
