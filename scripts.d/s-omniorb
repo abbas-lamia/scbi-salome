@@ -70,7 +70,7 @@ function s-omniorb-mingw-env()
     local TARGET=$2
  
     set-var    OMNIORB_ROOT_DIR   $PREFIX
-    set-var    OMNIORB_ROOT       $PREFIX
+    set-var    OMNIORB_ROOT       $PREFIX/../src
     add-to-var PATH               ${OMNIORB_ROOT_DIR}/bin/x86_win32
     add-to-var PATH               ${OMNIORB_ROOT_DIR}/lib/x86_win32
     add-to-var PYTHONPATH         ${OMNIORB_ROOT_DIR}/lib/python
@@ -79,8 +79,7 @@ function s-omniorb-mingw-env()
     set-var    OMNIORB_BIN_DIR    ${OMNIORB_ROOT_DIR}/bin/x86_win32
     set-var    OMNIORB_USER_PATH  ${APPDATA}
 
-    #add-to-var C_INCLUDE_PATH     $PREFIX/include
-    #add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    set-var    OMNIORBPY_DIR      ${OMNIORB_ROOT}/src/lib/omniORBpy
     add-to-var LD_LIBRARY_PATH    ${OMNIORB_ROOT_DIR}/lib
     
 }
@@ -134,11 +133,12 @@ function s-omniorb-mingw-install()
     local PREFIX=$1
     local TARGET=$2
 
-    cp -r ../src/src/bin $PREFIX
+    mkdir -p $PREFIX
+    cp -r ../src/bin $PREFIX
     cp -r ../src/src/lib $PREFIX
 }
 
 function s-omniorb-prefix()
-{
+{   
     echo NONE
 }
