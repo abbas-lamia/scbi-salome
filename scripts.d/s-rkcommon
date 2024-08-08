@@ -20,6 +20,28 @@ function s-rkcommon-archive()
     echo rkcommon-$VERSION.tar.gz
 }
 
+function s-rkcommon-cea-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo rkCommon-$VERSION.tar.gz
+}
+
+function s-rkcommon-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    echo rkcommon-1.5.1-all.patch
+}
+
 function s-rkcommon-build-depends()
 {
     echo s-cmake
@@ -51,12 +73,44 @@ function s-rkcommon-env()
                $(last-modified-directory "$PREFIX/lib*/cmake/rkcommon-*")
 }
 
+function s-rkcommon-mingw-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    RKCOMMON_ROOT_DIR  $PREFIX
+    set-var    RKCOMMON_BUILD_DIR $PREFIX/../build
+
+    add-to-var C_INCLUDE_PATH     $PREFIX/include/rkcommon
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include/rkcommon
+    add-to-var LIBRARY_PATH       $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var PATH               $PREFIX/bin
+
+    add-to-var CMAKE_PREFIX_PATH \
+               $(last-modified-directory "$PREFIX/lib*/cmake/rkcommon-*")
+}
+
 function s-rkcommon-config()
 {
     local PREFIX=$1
     local TARGET=$2
 
     cmake -DCMAKE_INSTALL_PREFIX=$PREFIX ../src
+}
+
+function s-rkcommon-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake \
+		-G"MSYS Makefiles" \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_PREFIX=$PREFIX  \
+		-DTBB_DLL=${TBB_ROOT}/bin/libtbb12.dll \
+		-DTBB_DLL_MALLOC=${TBB_ROOT}/bin/libtbbmalloc.dll \
+		../src
 }
 
 function s-rkcommon-build()
