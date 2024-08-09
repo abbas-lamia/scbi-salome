@@ -18,6 +18,28 @@ function s-embree-archive()
     echo embree-$VERSION.tar.gz
 }
 
+function s-embree-cea-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo embree-$VERSION.tar.gz
+}
+
+function s-embree-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    echo embree-3.12.2-all.patch
+}
+
 function s-embree-build-depends()
 {
     local PREFIX=$1
@@ -27,6 +49,18 @@ function s-embree-build-depends()
     echo s-cmake
     echo s-ispc
     echo s-clang
+}
+
+function s-embree-mingw-build-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo s-cmake
+    echo s-clang
+    echo s-rkcommon
+    echo s-tbb
 }
 
 function s-embree-depends()
@@ -65,6 +99,29 @@ function s-embree-config()
           -DCMAKE_CXX_COMPILER=clang++ ../src
 }
 
+function s-embree-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    mv ../src/kernels/embree.rc{,.orig}
+    iconv -f UTF-16LE -t UTF-8 ../src/kernels/embree.rc.orig > ../src/kernels/embree.rc
+
+    cmake -G"Ninja" \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_PREFIX=${PREFIX} \
+		-DEMBREE_STATIC_LIB=OFF \
+		-DEMBREE_STACK_PROTECTOR=ON \
+		-DEMBREE_TUTORIALS=OFF \
+		-DEMBREE_ISPC_SUPPORT=OFF \
+		-DEMBREE_ISA_AVX512=ON \
+		-DEMBREE_MAX_ISA=AVX512SKX \
+		-DBUILD_TESTING=ON \
+		-Dtbb_DLL_RELEASE:PATH=${MINGW_PREFIX}/bin/libtbb12.dll \
+		-Dtbb_LIBRARY_RELEASE:FILEPATH=${MINGW_PREFIX}/lib/libtbb12.dll.a \
+		../src
+}
+
 function s-embree-build()
 {
     local PREFIX=$1
@@ -73,12 +130,28 @@ function s-embree-build()
     make -j$SCBI_JOBS
 }
 
+function s-embree-mingw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --build .
+}
+
 function s-embree-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-embree-mingw-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --install .
 }
 
 function s-embree-prefix()
