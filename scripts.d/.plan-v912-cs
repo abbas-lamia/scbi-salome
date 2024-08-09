@@ -28,7 +28,7 @@ s-fmil:#2.0.3
 s-pyfmi:#2.6
 s-openturns-fmi:#0.15
 
-s-embree:#3.12.2
+s-embree/cea.mingw:#3.12.2
 s-rkcommon/cea.mingw:#1.5.1
 s-openvkl:#0.11.0
 s-ospray:#2.4.0
@@ -94,7 +94,7 @@ s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
 s-paraview/default.mpi.ospray.gdal.catalyst.cea:5.11.0
 s-cgal/auto:v4.13
 s-netcdf/cea.mingw:#4.7.4
-s-tbb/win
+s-tbb/win:2021.13.0
 
 [
         # s-homard tool is now merged into s-homard module
