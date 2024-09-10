@@ -18,6 +18,17 @@ function s-openturns-archive()
     echo openturns-$VERSION.tar.bz2
 }
 
+function s-openturns-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    echo openturns-1.22-fix-default-site-packages.patch
+}
+
 function s-openturns-common-build-depends()
 {
     echo s-cmake
@@ -72,6 +83,25 @@ function s-openturns-config-options()
     echo -DPYTHON_EXECUTABLE=$(command -v python$PYTHON_VERSION)
 }
 
+function s-openturns-mingw-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local PYVER=$(python --version|cut -d' ' -f2|cut -d '.' -f 1,2)
+    echo -Wno-dev
+	echo -DCMAKE_BUILD_TYPE=Release
+	echo -DCMAKE_INSTALL_PREFIX=${PREFIX}
+	echo -DPython_EXECUTABLE=${MINGW_PREFIX}/bin/python
+	echo -DUSE_SPHINX=OFF 
+	echo -DPython_LIBRARY=${MINGW_PREFIX}/lib/libpython${PYVER}.dll.a
+	echo -DCMAKE_UNITY_BUILD=ON -DCMAKE_UNITY_BUILD_BATCH_SIZE=32
+	echo -DUSE_TBB=OFF 
+	echo -DSWIG_COMPILE_FLAGS="-O1 -Wno-unused-parameter -Wno-shadow"
+    echo -DUSE_DOXYGEN=OFF
+}
+
 function s-openturns-config()
 {
     local PREFIX=$1
@@ -84,6 +114,19 @@ function s-openturns-config()
     cmake "${OPTIONS[@]}" ../src
 }
 
+function s-openturns-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    CFLAGS+=" -Wall -Wextra -Wpedantic -Wshadow -D_GLIBCXX_ASSERTIONS -Wno-deprecated-declarations -Wno-calloc-transposed-args" \
+    cmake "${OPTIONS[@]}" ../src
+}
+
 function s-openturns-build()
 {
     local PREFIX=$1
@@ -92,12 +135,28 @@ function s-openturns-build()
     make -j$SCBI_JOBS
 }
 
+function s-openturns-mingw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --build .
+}
+
 function s-openturns-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-openturns-mingw-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --install .
 }
 
 function s-openturns-prefix()
