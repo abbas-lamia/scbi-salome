@@ -174,11 +174,11 @@ function s-hdf5-mingw-config-options()
     echo -DCMAKE_DLL_NAME_WITH_SOVERSION=ON
     echo -DBUILD_TESTING=ON
     echo -DCMAKE_SKIP_RPATH=ON
-	echo -DHDF5_BUILD_CPP_LIB=ON 
-	echo -DHDF5_BUILD_FORTRAN=ON
-	echo -DHDF5_ENABLE_SZIP_SUPPORT=OFF
-	echo -DHDF5_INSTALL_CMAKE_DIR="lib/cmake"
-	echo -DHDF5_INSTALL_DATA_DIR="share/doc/hdf5"
+    echo -DHDF5_BUILD_CPP_LIB=ON 
+    echo -DHDF5_BUILD_FORTRAN=ON
+    echo -DHDF5_ENABLE_SZIP_SUPPORT=OFF
+    echo -DHDF5_INSTALL_CMAKE_DIR="lib/cmake"
+    echo -DHDF5_INSTALL_DATA_DIR="share/doc/hdf5"
 }
 
 function s-hdf5-config()
@@ -201,8 +201,8 @@ function s-hdf5-mingw-config()
 
     local OPTIONS=()
     get-config-options OPTIONS $PREFIX $TARGET $VARIANT
-
-	CFLAGS+=" -Wno-implicit-function-declaration" \
+    
+    CFLAGS+=" -Wno-implicit-function-declaration" \
     cmake "${OPTIONS[@]}" ../src
 }
 
@@ -218,8 +218,8 @@ function s-hdf5-mingw-build()
 {
     local PREFIX=$1
     local TARGET=$2
-
-	cmake --build .
+    
+    cmake --build .
 }
 
 function s-hdf5-install()
@@ -234,8 +234,8 @@ function s-hdf5-mingw-install()
 {
     local PREFIX=$1
     local TARGET=$2
-
-	cmake --install .
+    
+    cmake --install .
 }
 
 function s-hdf5-prefix()

@@ -81,7 +81,6 @@ function s-omniorb-mingw-env()
 
     set-var    OMNIORBPY_DIR      ${OMNIORB_ROOT}/src/lib/omniORBpy
     add-to-var LD_LIBRARY_PATH    ${OMNIORB_ROOT_DIR}/lib
-    
 }
 
 function s-omniorb-config()
