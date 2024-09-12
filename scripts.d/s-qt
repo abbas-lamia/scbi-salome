@@ -15,6 +15,10 @@ with-variant native \
        'add-to-var CMAKE_PREFIX_PATH $QT5_ROOT_DIR/lib/$TARGET/cmake/Qt5' \
        'add-to-var CMAKE_PREFIX_PATH $QT5_ROOT_DIR/lib/$TARGET/cmake/Qt5LinguistTools'
 
+#  Adds a mingw variant using the MingW64 qt version
+with-variant mingw \
+  --env 'add-to-var PATH $MINGW_PREFIX'
+
 function s-qt-vcs()
 {
     echo edf

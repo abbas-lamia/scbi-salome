@@ -35,7 +35,7 @@ s-ospray:#2.4.0
 s-uranie:#4.7.0
 s-root:#6-22-02
 s-zcracks:#3.2.9
-s-qt/auto:#5.15.2
+s-qt/mingw:5.15.15
 s-qmake/auto:#5.15.2
 s-pyqt/auto:#5.15.3
 s-sip/auto:#5.5.0
@@ -94,7 +94,8 @@ s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
 s-paraview/default.mpi.ospray.gdal.catalyst.cea:5.11.0
 s-cgal/auto:v4.13
 s-netcdf/cea.mingw:#4.7.4
-s-tbb/win:2021.13.0
+s-tbb/mingw:2021.13.0
+s-boost/mingw:1.85.0
 
 [
         # s-homard tool is now merged into s-homard module
@@ -106,7 +107,7 @@ s-tbb/win:2021.13.0
         s-opencv
         #s-netcdf
         s-eigen
-        s-boost
+        #s-boost
 ] /native
 
 # First, for repositories where master is at CEA
