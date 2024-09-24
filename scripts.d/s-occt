@@ -136,6 +136,7 @@ function s-occt-mingw-config-options()
     local TARGET=$2
     local VARIANT=$3
 
+    echo -Wno-dev
     echo -DCMAKE_INSTALL_PREFIX=$PREFIX
     echo -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release)
     echo -DUSE_TCL=OFF
@@ -150,6 +151,8 @@ function s-occt-mingw-config-options()
     echo -D3RDPARTY_FREEIMAGE_LIBRARY=$MINGW_PREFIX/bin/libfreeimage-3.dll 
     echo -D3RDPARTY_FREETYPE_DLL_DIR=$MINGW_PREFIX/bin 
     echo -D3RDPARTY_FREEIMAGE_DLL_DIR=$MINGW_PREFIX/bin 
+    echo -DINSTALL_TEST_CASES=ON
+    echo -DCMAKE_CXX_FLAGS=" -fpermissive "
     echo -DCMAKE_SOURCE_DIR=../src   
 
 }
@@ -186,12 +189,28 @@ function s-occt-build()
     make -j$SCBI_JOBS
 }
 
+function s-occt-mingw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --build .
+}
+
 function s-occt-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-occt-mingw-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --install .
 }
 
 function s-occt-prefix()
