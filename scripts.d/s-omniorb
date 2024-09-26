@@ -69,7 +69,7 @@ function s-omniorb-mingw-env()
     local PREFIX=$1
     local TARGET=$2
  
-    set-var    OMNIORB_ROOT_DIR   $PREFIX
+    set-var    OMNIORB_ROOT_DIR   $PREFIX/../src
     set-var    OMNIORB_ROOT       $PREFIX/../src
     add-to-var PATH               ${OMNIORB_ROOT_DIR}/bin/x86_win32
     add-to-var PATH               ${OMNIORB_ROOT_DIR}/lib/x86_win32

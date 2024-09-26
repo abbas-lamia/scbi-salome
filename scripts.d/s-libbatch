@@ -67,6 +67,20 @@ function s-libbatch-env()
     add-to-var LD_LIBRARY_PATH $PREFIX/lib
 }
 
+function s-libbatch-mingw-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    local PYTHON_VERSION=$($PYTHONBIN -c 'import sysconfig; print(sysconfig.get_python_version())')
+
+    set-var    LibBatch_DIR    $PREFIX
+    set-var    LIBBATCH_ROOT_DIR $PREFIX
+
+    add-to-var LD_LIBRARY_PATH    ${PREFIX}/lib
+    add-to-var PYTHONPATH         ${LIBBATCH_ROOT_DIR}/lib/python${PYTHON_VERSION}/site-packages
+}
+
 function s-libbatch-config()
 {
     local PREFIX=$1

@@ -3,4 +3,5 @@ with-variant native os@-boost-dev \
 
 #  Adds a mingw variant using the MingW64 boost version
 with-variant mingw \
-  --env 'add-to-var PATH $MINGW_PREFIX'
+  --env 'add-to-var PATH $MINGW_PREFIX' \
+        'set-var BOOST_ROOT_DIR $MINGW_PREFIX'

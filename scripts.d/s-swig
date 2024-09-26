@@ -6,8 +6,8 @@ with-variant native os@-swig:[v] \
 #  Adds a mingw variant using the MingW64 swig version
 with-variant mingw  \
              --env 'add-to-var PATH $MINGW_PREFIX' \
-                   'set-var SWIG_ROOT_DIR /usr' \
-                   'set-var SWIG_ROOT /usr'
+                   'set-var SWIG_ROOT_DIR $MINGW_PREFIX' \
+                   'set-var SWIG_ROOT $MINGW_PREFIX'
 
 function s-swig-vcs()
 {

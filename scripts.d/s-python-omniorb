@@ -68,7 +68,7 @@ function s-python-omniorb-mingw-env()
     local TARGET=$2
 
     # Les variables d'environnement ont été définies dans s-omniorb
-    echo NONE
+    set-var    OMNIORBPY_ROOT_DIR ${OMNIORB_ROOT_DIR}
 
 }
 
