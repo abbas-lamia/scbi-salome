@@ -1,7 +1,8 @@
 ###########################################
 # TOOLS
 
-@set GITHUB_VERSION = V9_12_0
+#@set GITHUB_VERSION = V9_13_0
+@set GITHUB_VERSION = master
 @set PV_VERSION  = v5.11.0
 
 # clang 12 & s-ispc 1.16 are matching versions
@@ -123,7 +124,7 @@ s-boost/mingw:1.85.0
         s-netgen-plugin
         s-shaper-study
         s-homard
-        s-salome-configuration/github
+        s-salome-configuration/github.mingw
         s-salome-jobmanager
         s-yacs
         s-yacsgen
@@ -143,7 +144,7 @@ s-boost/mingw:1.85.0
         s-py2cpp
         s-paravisaddons-common
         s-smesh
-        s-salome-kernel/default.github
+        s-salome-kernel/default.github.mingw
         s-salome-gui
         s-ghs3d-plugin
         s-ghs3dprl-plugin
