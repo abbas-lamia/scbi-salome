@@ -2,6 +2,9 @@
 with-variant native os@-proj-dev:[v] \
       --env  'set-var PROJ_ROOT_DIR /usr'
 
+with-variant mingw \
+      --env  'set-var PROJ_ROOT_DIR $MINGW_PREFIX'
+
 function s-proj-vcs()
 {
     echo edf
