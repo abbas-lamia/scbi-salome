@@ -47,6 +47,17 @@ function s-salome-configuration-patches()
     [[ $REF =~ "9_7" ]] && echo fix-detection-of-hdf5.patch
 }
 
+function s-salome-configuration-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    echo CONFIGURATION-p0001.patch
+}
+
 function s-salome-configuration-common-env()
 {
     local PREFIX=$1
