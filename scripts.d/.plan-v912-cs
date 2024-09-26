@@ -56,7 +56,7 @@ s-netgen/autotools:#5.3.1
 
 s-gmsh:#4.10.3
 s-gdal/cea.mingw:#3.2.2
-s-proj/auto:#7.2.0
+s-proj/mingw:9.4.1
 s-medfichier:#4.1.1
 s-python3-nlopt/auto:2.4.2
 s-python3-rich/auto:9.11.0
@@ -85,7 +85,7 @@ s-omniorb/cea.mingw:#4.2.6
 s-occt/mingw:SALOME_9_13_V7_8_0
 s-meshgems:#V2.13-3_linux_EU
 s-distene:#V2.12-1_linux_EU
-s-cgns/auto:#4.2.0
+s-cgns/cea.mingw:#4.2.0
 s-hdf5/cea.mingw:#1.10.6
 s-catalyst:#2.0-431a8a1
 s-python-modules/default.wand.metadata.toml:master

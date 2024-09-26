@@ -20,6 +20,17 @@ function s-cgns-archive()
     echo cgnslib-$VERSION.tar.gz
 }
 
+function s-cgns-cea-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo cgns-$VERSION.tar.gz
+}
+
 function s-cgns-build-depends()
 {
     echo s-cmake
@@ -54,6 +65,22 @@ function s-cgns-config()
           ../src
 }
 
+function s-cgns-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    CXXFLAGS+=" -w -Wno-register" \
+    cmake -G"Ninja" \
+          -DCMAKE_INSTALL_PREFIX=$PREFIX \
+          -DCMAKE_BUILD_TYPE=$(get-build-type CMAKE Release) \
+          -DCGNS_BUILD_SHARED=ON \
+          -DCGNS_ENABLE_HDF5=ON \
+          -DHDF5_NEED_ZLIB=ON \
+          -DCGNS_ENABLE_64BIT=OFF \
+          ../src
+}
+
 function s-cgns-build()
 {
     local PREFIX=$1
@@ -62,12 +89,28 @@ function s-cgns-build()
     make -j$SCBI_JOBS
 }
 
+function s-cgns-mingw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --build .
+}
+
 function s-cgns-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-cgns-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cmake --install .
 }
 
 function s-cgns-prefix()
