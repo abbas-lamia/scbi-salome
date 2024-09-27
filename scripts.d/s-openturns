@@ -71,6 +71,21 @@ function s-openturns-env()
                $PREFIX/lib/python$PYTHON_VERSION/site-packages/
 }
 
+function s-openturns-mingw-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    OPENTURNS_HOME    $PREFIX
+    set-var    OT_ROOT_DIR       $PREFIX
+
+    add-to-var PATH              $PREFIX/bin
+    add-to-var CMAKE_PREFIX_PATH $PREFIX/lib/cmake
+    add-to-var LD_LIBRARY_PATH   $PREFIX/lib
+    add-to-var PYTHONPATH        \
+               $PREFIX/lib/python$PYTHON_VERSION/site-packages/
+}
+
 function s-openturns-config-options()
 {
     local PREFIX=$1

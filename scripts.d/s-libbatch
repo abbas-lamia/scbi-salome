@@ -72,8 +72,6 @@ function s-libbatch-mingw-env()
     local PREFIX=$1
     local TARGET=$2
 
-    local PYTHON_VERSION=$($PYTHONBIN -c 'import sysconfig; print(sysconfig.get_python_version())')
-
     set-var    LibBatch_DIR    $PREFIX
     set-var    LIBBATCH_ROOT_DIR $PREFIX
 

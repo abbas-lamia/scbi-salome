@@ -77,6 +77,24 @@ function s-gdal-env()
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
 }
 
+function s-gdal-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    GDAL_ROOT_DIR      $PREFIX
+    set-var    GDAL_INCLUDE_DIR   $PREFIX/include
+    set-var    GDAL_LIBRARY       $PREFIX/lib
+
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    add-to-var LIBRARY_PATH       $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var PATH               $PREFIX/lib
+    add-to-var PATH               $PREFIX/bin
+
+}
+
 function s-gdal-config()
 {
     local PREFIX=$1

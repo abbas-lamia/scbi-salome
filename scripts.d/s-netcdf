@@ -55,6 +55,20 @@ function s-netcdf-env()
     add-to-var LD_LIBRARY_PATH    $PREFIX/lib
 }
 
+function s-netcdf-mingw-env()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    set-var    NETCDF_ROOT_DIR    $PREFIX
+
+    add-to-var C_INCLUDE_PATH     $PREFIX/include
+    add-to-var CPLUS_INCLUDE_PATH $PREFIX/include
+    add-to-var LIBRARY_PATH       $PREFIX/lib
+    add-to-var LD_LIBRARY_PATH    $PREFIX/lib
+    add-to-var PATH               $PREFIX/bin
+}
+
 function s-netcdf-mingw-config()
 {
     local PREFIX=$1
