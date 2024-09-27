@@ -37,7 +37,7 @@ function s-embree-mingw-patches()
     local KIND=$4
     local REF=$5
 
-    echo embree-3.12.2-all.patch
+    echo embree-3.12.2.msys2.patch
 }
 
 function s-embree-build-depends()

@@ -26,7 +26,7 @@ function s-openturns-mingw-patches()
     local KIND=$4
     local REF=$5
 
-    echo openturns-1.22-fix-default-site-packages.patch
+    echo openturns-1.22.msys2.patch
 }
 
 function s-openturns-common-build-depends()

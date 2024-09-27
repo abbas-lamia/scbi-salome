@@ -42,7 +42,7 @@ function s-gdal-mingw-patches()
     local KIND=$4
     local REF=$5
 
-    echo gdal-3.2.2.patch
+    echo gdal-3.2.2.msys2.patch
 }
 
 function s-gdal-build-depends()

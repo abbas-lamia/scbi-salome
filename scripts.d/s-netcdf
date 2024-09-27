@@ -28,7 +28,7 @@ function s-netcdf-mingw-patches()
     local KIND=$4
     local REF=$5
 
-    echo netcdf-4.7.4-skip-XGetopt.patch
+    echo netcdf-4.7.4.msys2.patch
 }
 
 function s-netcdf-build-depends()

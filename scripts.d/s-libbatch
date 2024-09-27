@@ -42,7 +42,7 @@ function s-libbatch-mingw-patches()
     local KIND=$4
     local REF=$5
 
-    echo LIBBATCH-mingw.patch
+    echo LIBBATCH.msys2.patch
 }
 
 function s-libbatch-build-depends()

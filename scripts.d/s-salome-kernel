@@ -42,7 +42,7 @@ function s-salome-kernel-mingw-patches()
     local KIND=$4
     local REF=$5
 
-    echo patches_KERNEL.msys2.patch
+    echo KERNEL.msys2.patch
 }
 
 function s-salome-kernel-salome-module()

@@ -83,7 +83,7 @@ function s-hdf5-mingw-patches()
     local KIND=$4
     local REF=$5
 
-    echo hdf5-1.10.6-mingw64.patch
+    echo hdf5-1.10.6.msys2.patch
 }
 
 function s-hdf5-build-depends()

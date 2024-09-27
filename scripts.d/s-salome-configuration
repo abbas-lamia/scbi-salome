@@ -55,7 +55,7 @@ function s-salome-configuration-mingw-patches()
     local KIND=$4
     local REF=$5
 
-    echo CONFIGURATION-p0001.patch
+    echo CONFIGURATION.msys2.patch
 }
 
 function s-salome-configuration-common-env()
