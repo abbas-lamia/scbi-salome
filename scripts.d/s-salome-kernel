@@ -42,6 +42,9 @@ function s-salome-kernel-mingw-patches()
     local KIND=$4
     local REF=$5
 
+    # Patches for MSYS2 and no use of printBacktrace which breaks compilation. 
+    # To be investigated in the long term. 
+    # Also, issue related to the gcc compiler)
     echo KERNEL.msys2.patch
 }
 

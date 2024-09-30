@@ -42,6 +42,7 @@ function s-gdal-mingw-patches()
     local KIND=$4
     local REF=$5
 
+    # Fix gcc compilation and exposure of DLLs with add_dll_directory
     echo gdal-3.2.2.msys2.patch
 }
 

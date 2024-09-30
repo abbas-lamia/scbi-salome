@@ -39,6 +39,7 @@ function s-rkcommon-mingw-patches()
     local KIND=$4
     local REF=$5
 
+    # Handling header file math.h issues under MSYS2
     echo rkcommon-1.5.1-all.patch
 }
 

@@ -43,6 +43,7 @@ function s-omniorb-mingw-patches()
     local KIND=$4
     local REF=$5
 
+    # Patch to support MSYS2 which is not implemented by default
     echo omniORB-4.2.6.msys2.patch
 }
 

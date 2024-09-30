@@ -55,6 +55,7 @@ function s-salome-configuration-mingw-patches()
     local KIND=$4
     local REF=$5
 
+    # Fix in cmake to find Python
     echo CONFIGURATION.msys2.patch
 }
 

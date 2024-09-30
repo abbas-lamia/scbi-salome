@@ -65,6 +65,8 @@ function s-paraview-mingw-patches()
     local KIND=$4
     local REF=$5
 
+    # Implement the threshold version of openturns.
+    # And add header files to allow compilation under MSYS2
     echo ParaView-5.11.0.msys2.patch
 }
 

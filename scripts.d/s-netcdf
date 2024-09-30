@@ -28,6 +28,7 @@ function s-netcdf-mingw-patches()
     local KIND=$4
     local REF=$5
 
+    # Add preprocessor flag __MINGW32__ for MSYS2 support
     echo netcdf-4.7.4.msys2.patch
 }
 

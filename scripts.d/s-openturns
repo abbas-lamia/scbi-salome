@@ -26,6 +26,8 @@ function s-openturns-mingw-patches()
     local KIND=$4
     local REF=$5
 
+    # Support for new approach implemented since Python 3.8 
+    # for exposing DLLs from os.add_dll_directory method
     echo openturns-1.22.msys2.patch
 }
 

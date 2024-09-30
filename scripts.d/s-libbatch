@@ -42,6 +42,8 @@ function s-libbatch-mingw-patches()
     local KIND=$4
     local REF=$5
 
+    # CMake files are currently only compatible with Microsoft Visual C++. 
+    # The necessary options for MSYS2 have been added.
     echo LIBBATCH.msys2.patch
 }
 

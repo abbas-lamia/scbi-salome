@@ -83,6 +83,7 @@ function s-hdf5-mingw-patches()
     local KIND=$4
     local REF=$5
 
+    # Patch to support MSYS2 for some parts of HDF5
     echo hdf5-1.10.6.msys2.patch
 }
 
