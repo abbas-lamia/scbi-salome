@@ -94,7 +94,7 @@ function s-libbatch-mingw-config()
 {
     local PREFIX=$1
     local TARGET=$2
-    local PTHREAD_ROOT_DIR=/opt/x86_64-w64-mingw32
+    local PTHREAD_ROOT_DIR=${MINGW_PREFIX}
 
     cmake -G"Ninja" \
           -DCMAKE_INSTALL_PREFIX=$PREFIX \
