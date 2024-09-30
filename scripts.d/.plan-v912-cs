@@ -91,8 +91,8 @@ s-catalyst:#2.0-431a8a1
 s-python-modules/default.wand.metadata.toml:master
 s-scotch/auto:#6.1.2
 s-ptscotch/auto:#6.1.2
-s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
-s-paraview/default.mpi.ospray.gdal.catalyst.cea:5.11.0
+#s-paraview/default.mpi.ospray.gdal.catalyst:#$PV_VERSION
+s-paraview/cea.mingw:#5.11.0
 s-cgal/auto:v4.13
 s-netcdf/cea.mingw:#4.7.4
 s-tbb/mingw:2021.13.0
@@ -151,7 +151,7 @@ s-boost/mingw:1.85.0
         s-ydefx
         s-topiivol
         s-component
-        s-salome-bootstrap
+        #s-salome-bootstrap
         s-salome-eficas
         s-eficas-tools
         s-adao

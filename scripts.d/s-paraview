@@ -18,6 +18,17 @@ function s-paraview-archive()
     echo ParaView-$VERSION-source.tar.gz
 }
 
+function s-paraview-cea-archive()
+{
+    local VERSION=$1
+
+    echo default
+    echo none
+    echo wget
+    echo ftp://ftp.cea.fr/pub/salome/prerequisites
+    echo ParaView-$VERSION.tar.gz
+}
+
 function s-paraview-ng-archive()
 {
     local VERSION=$1
@@ -44,6 +55,17 @@ function s-paraview-patches()
             echo paraview-5.11.0-gil.patch
             echo paraview-5.11.0-openturns-1.21.patch
         }
+}
+
+function s-paraview-mingw-patches()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+    local KIND=$4
+    local REF=$5
+
+    echo ParaView-5.11.0.msys2.patch
 }
 
 function s-paraview-ng-build-depends()
@@ -116,6 +138,26 @@ function s-paraview-default-depends()
     echo s-qt
     echo s-hdf5
     echo s-openturns
+}
+
+function s-paraview-mingw-depends()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    echo os@-python3-dev
+    echo os@-x11-dev
+    echo os@-xt-dev
+
+    echo s-qt
+    echo s-hdf5
+    echo s-openturns
+    echo s-gdal
+    echo s-cgns
+    echo s-netcdf
+    echo s-rkcommon
+    echo s-embree
 }
 
 function s-paraview-env()
@@ -312,6 +354,45 @@ function s-paraview-headless-config-options()
     echo -DOPENGL_opengl_LIBRARY=$(get-os-lib libGL.so)
     echo -DOPENGL_gles2_LIBRARY=$(get-os-lib libGLESv2.so)
 }
+function s-paraview-mingw-config-options()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    # python
+    local PYTHONBIN=$(which python)
+
+    echo -G"Ninja"
+    echo -DCMAKE_BUILD_TYPE:STRING=$(get-build-type CMAKE Release)
+    echo -DCMAKE_INSTALL_PREFIX=$PREFIX
+    echo -DVTK_IGNORE_CMAKE_CXX11_CHECKS=ON
+	echo -DPARAVIEW_BUILD_SHARED_LIBS=ON
+	echo -DPARAVIEW_USE_PYTHON=ON
+	echo -DPARAVIEW_USE_QT=ON
+	echo -DPARAVIEW_ENABLE_LAS=ON
+	echo -DPARAVIEW_ENABLE_GDAL=ON
+	echo -DPARAVIEW_ENABLE_OPENTURNS=ON
+	echo -DPARAVIEW_VERSIONED_INSTALL=OFF
+	echo -DPARAVIEW_BUILD_WITH_EXTERNAL=ON
+	echo -DVTK_SMP_IMPLEMENTATION_TYPE=TBB
+	echo -DVTK_MODULE_USE_EXTERNAL_VTK_exprtk=OFF
+	echo -DVTK_MODULE_USE_EXTERNAL_VTK_ioss=OFF
+	echo -DVTK_MODULE_USE_EXTERNAL_VTK_verdict=OFF
+	echo -DVTK_MODULE_USE_EXTERNAL_VTK_hdf5=ON
+	echo -DHDF5_IS_PARALLEL=OFF
+	echo -DHDF5_FIND_DEBUG=ON
+	echo -DHDF5_ROOT=${HDF5_ROOT_DIR}
+	echo -DHDF5_DIR=${HDF5_ROOT_DIR}/lib/cmake/hdf5
+	echo -DHDF5_C_LIBRARY=${HDF5_ROOT_DIR}/lib/libhdf5.dll.a
+	echo -DHDF5_INCLUDE_DIRS=${HDF5_ROOT_DIR}/include
+	echo -DCGNS_LIBRARY=${CGNS_ROOT_DIR}/lib/libcgnsdll.dll.a
+	echo -DCGNS_INCLUDE_DIR=${CGNS_ROOT_DIR}/include
+	echo -DPython3_EXECUTABLE=${PYTHONBIN}
+	echo -DOpenTURNS_DIR=${OT_ROOT_DIR}/lib/cmake/openturns
+	echo -DGDAL_INCLUDE_DIR=${GDAL_ROOT_DIR}/include
+	echo -DTBB_ROOT=${MINGW_PREFIX}
+}
 
 function s-paraview-config()
 {
@@ -325,6 +406,26 @@ function s-paraview-config()
     cmake "${OPTIONS[@]}" ../src
 }
 
+function s-paraview-mingw-config()
+{
+    local PREFIX=$1
+    local TARGET=$2
+    local VARIANT=$3
+
+    local OPTIONS=()
+    get-config-options OPTIONS $PREFIX $TARGET $VARIANT
+
+    # To limit the path's length in the build
+    rm -rf /tmp/PVS
+    rm -rf /tmp/PVB
+    mkdir -p /tmp/PVB
+    cp -r ../src /tmp/PVS
+    cd /tmp/PVB
+
+    CXXFLAGS+=" -w -Wno-register" \
+    cmake "${OPTIONS[@]}" /tmp/PVS
+}
+
 function s-paraview-build()
 {
     local PREFIX=$1
@@ -333,12 +434,30 @@ function s-paraview-build()
     make -j$SCBI_JOBS
 }
 
+function s-paraview-mingw-build()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd /tmp/PVB
+    cmake --build . 
+}
+
 function s-paraview-install()
 {
     local PREFIX=$1
     local TARGET=$2
 
     make install
+}
+
+function s-paraview-mingw-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    cd /tmp/PVB
+    cmake --install .
 }
 
 function s-paraview-post-install()
@@ -360,6 +479,14 @@ function s-paraview-post-install()
     [[ -d $IDIR ]] &&
         sed -i 's/COMPONENTS          C/#COMPONENTS          C/g' \
             $IDIR/vtk/VTK-vtk-module-find-packages.cmake
+}
+
+function s-paraview-mingw-post-install()
+{
+    local PREFIX=$1
+    local TARGET=$2
+
+    echo NONE
 }
 
 function s-paraview-prefix()
